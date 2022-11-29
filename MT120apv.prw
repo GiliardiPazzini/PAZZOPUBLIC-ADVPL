@@ -10,7 +10,7 @@ User Function MT120APV()
 
 Local ExpC1 := Nil
 Local ExpC2 := Nil
-Local cGrp := "" //Grupo de aprovaÁ„o
+Local cGrp := "" //Grupo de aprova√ß√£o
 
 Local aPergs     := {}
 Local aRetorn    := {}
@@ -25,12 +25,12 @@ Local nPosx
 Local nPosy
 Local cMSG :=""
 
-/* Vari·vel Privada */
+/* Vari√°vel Privada */
 Private cNewGRP    := Space(06)
 //Private lIncluir 	:= .F.
 //Private lAlterar 	:= .F.
 
-/* Abro a empresa TESTE, caso faÁa uso via debug
+/* Abro a empresa TESTE, caso fa√ßa uso via debug
 Remover para utilizar dentro do Protheus*/
  /*   RpcSetEnv('99','01')*/
 IF !IsBlind()  
@@ -75,8 +75,8 @@ IF !IsBlind()
                 ExpC1 := PARAMIXB[1]
                 ExpC2 := PARAMIXB[2]
 
-                //EXEMPLO 2 (Manipulando o saldo do pedido, na alteraÁ„o do pedido):
-                //Manipulando o saldo do pedido pelo usu·rio, conf. necessidade, atualizando a vari·vel n120TotLib
+                //EXEMPLO 2 (Manipulando o saldo do pedido, na altera√ß√£o do pedido):
+                //Manipulando o saldo do pedido pelo usu√°rio, conf. necessidade, atualizando a vari√°vel n120TotLib
                 /*If ALTERA
                     MSGALERT( "ALTERAR no ponto MT120APV")
                 Endif
