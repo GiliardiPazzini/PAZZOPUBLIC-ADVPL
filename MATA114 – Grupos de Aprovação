@@ -1,0 +1,82 @@
+MATA114 - Grupos de Aprovação
+FONTE: https://tecnologia.bynem.com.br/mata114-grupos-de-aprovacao/
+
+A rotina MATA114 do sistema Totvs Protheus permite o relacionamento do grupo de aprovadores com as entidades contábeis disponíveis no sistema. Os aprovadores são associados em grupos conforme a hierarquia de aprovação definida pela empresa. Os documentos envolvidos são:
+
+Autorização de Entrega.
+Solicitação ao Armazém.
+Cotações.
+Contrato de Parceria.
+Medições.
+Nota Fiscal.
+Pedido de Compra.
+Solicitações de Compra.
+Solicitação de Transferência de Produto Entre Filiais/Armazém.
+Estude para provas de certificações em TI com os simulados Bynem
+
+Neste cadastro, os Aprovadores são associados em grupos, conforme a hierarquia de aprovação definida pela empresa. O objetivo desse cadastro é fornecer a Árvore de aprovação para os Documentos de compra.
+
+O nível de aprovação dos usuários, dentro do Grupo de aprovação, define a hierarquia de aprovação do grupo. Ao gerar o Fluxo de aprovação, o Sistema passa somente ao próximo nível quando o atual estiver aprovado (e assim até todos os níveis aprovarem o documento). Há ainda a possibilidade de configuração de diferentes tipos de aprovação ao utilizar o campo Tipo de Liberação.
+
+EntidadesRelacionadas
+
+ – SAL – Grupo de Aprovadores
+
+– SAK – Aprovadores
+
+Principais Campos
+Cabeçalho 
+Número (C096NUM): Código de identificação do grupo de aprovação.
+
+Descrição (C096DESC): Descrição para identificação do grupo de aprovação.
+
+Itens
+Aprovador (AL_APROV): Código do aprovador participante do Grupo de aprovação.
+
+Nível (AL_NIVEL): Nível do aprovador dentro da hierarquia do Grupo de Aprovação. Quanto maior o nível, maior a posição hierárquica.
+
+Tipo Aprov. (AL_LIBAPR): Identifica o tipo de aprovação do aprovador em questão. Pode assumir os seguintes valores:
+
+A. Visto: Não consome o valor do documento analisado do saldo do aprovador.
+
+B. Aprovador: Consome o valor do documento analisado do saldo do aprovado.
+
+Limite Auto (AL_AUTOLIM): Indica se considera os valores definidos como limite mínimo e limite máximo no Cadastro do Aprovador. Se Sim, dispensa a aprovação de documentos com valor fora dos limites definidos.
+
+Tipo Lib. (AL_TPLIBER): Identifica o tipo de liberação que será executada pelo aprovador em questão.
+
+Pode assumir os seguintes valores:
+
+A. Usuário: Realiza a liberação apenas do aprovador em questão. Os demais aprovadores do grupo, inclusive de mesmo nível devem proceder com as respectivas aprovações.
+
+B. Nível: Realiza a liberação de todo o nível ao qual o aprovador pertence no Grupo de Aprovação, disponibilizando o documento para análise do nível seguinte.
+
+C. Pedido: Realiza a liberação de todo o grupo de aprovação, atualizando o status do documento analisado para Liberado e encerrando o Fluxo de Alçadas.
+
+As informações do cadastro de Grupos de Aprovação são utilizadas nos seguintes módulos:
+
+Compras
+Libera os pedidos de compras vinculados ao cadastro de Grupos de Aprovação e conforme indicado no cadastro de Compradores ou nos parâmetros MV_CPAPROV (grupo de aprovação default que será utilizado na aprovação dos contratos de parceria) ou MV_PCAPROV (Grupo de aprovação default que será utilizado na aprovação dos Pedidos de Compras) e também outros documentos.
+
+Gestão de Contratos
+Libera as medições de contratos, conforme vinculado no momento em que é realizado o cadastro do Tipo de Contrato.
+
+Gestão de Licitações
+Libera os documentos como Pedido de Compras e Contratos gerados no encerramento do edital.
+
+Pontos de Entrada MATA114
+Ponto de Entrada Protheus são chamadas de Programas ADVPL colocadas em pontos estratégicos nas funções padrões do sistema Totvs Protheus e que originalmente não fazem nada. Abaixo listamos os principais pontos de entrada da rotina MATA114 – Grupos de Aprovação do Módulo de Compras
+
+MT114CAB
+MT114GRID
+Veja também:
+Simulados Certificações
+Blog Totvs Protheus
+Rotinas Totvs Protheus
+Blog Advpl
+Módulos Protheus
+
+TOTVS
+-----------------------
+
+https://tdn.totvs.com/pages/releaseview.action?pageId=274637723
