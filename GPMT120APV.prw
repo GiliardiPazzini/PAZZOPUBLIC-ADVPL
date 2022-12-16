@@ -10,7 +10,7 @@ User Function MT120APV()
 
 Local ExpC1 := Nil
 Local ExpC2 := Nil
-Local cGrp := "" //Grupo de aprovaÁ„o
+Local cGrp := "" //Grupo de aprova√ß√£o
 
 Local aPergs     := {}
 Local aRetorn    := {}
@@ -24,16 +24,13 @@ Local lCentered  := .T.
 Local nPosx
 Local nPosy
 Local cMSG :=""
-//local aCombo   := {"000001","000002","000003","000004","000005","000006","000007","000008","000009","000010","000011","000012","000013","000014","000015"}
 
-
-
-/* Vari·vel Privada */
+/* Vari√°vel Privada */
 Private cNewGRP    := Space(06)
 //Private lIncluir 	:= .F.
 //Private lAlterar 	:= .F.
 
-/* Abro a empresa TESTE, caso faÁa uso via debug
+/* Abro a empresa TESTE, caso fa√ßa uso via debug
 Remover para utilizar dentro do Protheus*/
  // RpcSetEnv('99','01')
 IF !IsBlind()  
@@ -69,7 +66,7 @@ IF !IsBlind()
               //  aAdd(aPergs, {1, "NOVO GRUPO : " , cNewGRP  , aCombo[], ".T.", "", ".T.", 80, .F.})
 
                 /* Se a pergunta for confirmada */
-                //aAdd( aPergs ,{9,"Abaixo escolha uma opÁ„o",200, 40,.T.})                 
+                //aAdd( aPergs ,{9,"Abaixo escolha uma op√ß√£o",200, 40,.T.})                 
                 //aAdd( aPergs ,{2,"Tipo 2 - Escolha:",01,aCombo,50,"",.T.})
 
 
@@ -94,8 +91,8 @@ IF !IsBlind()
                 ExpC1 := PARAMIXB[1]
                 ExpC2 := PARAMIXB[2]
 
-                //EXEMPLO 2 (Manipulando o saldo do pedido, na alteraÁ„o do pedido):
-                //Manipulando o saldo do pedido pelo usu·rio, conf. necessidade, atualizando a vari·vel n120TotLib
+                //EXEMPLO 2 (Manipulando o saldo do pedido, na altera√ß√£o do pedido):
+                //Manipulando o saldo do pedido pelo usu√°rio, conf. necessidade, atualizando a vari√°vel n120TotLib
                 /*If ALTERA
                     MSGALERT( "ALTERAR no ponto MT120APV")
                 Endif
