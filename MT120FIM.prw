@@ -22,8 +22,10 @@ User Function MT120FIM()
 	//Local cSC7KeySeek	:= (cSC7Filial + cA120Num)
 	//Local nSC7Order := RetOrder("SC7", "C7_FILIAL+C7_NUM+C7_ITEM")
 
+	
+	//Criar campos _x.. na SX3 : C7_XMOTPC,C7_XNOMESC
+	// Ponto de entrada percorre o pedido posicionado e preenche os campos do SET.
 	Local cQuery := ""
-
 
 		cQuery := " UPDATE " + RetSqlName("SC7")
 		cQuery += "    SET C7_XNOMESC = C1_SOLICIT ,  C7_XMOTPC = C7_NOMEPC, C7_OBS = USR_NOME 
