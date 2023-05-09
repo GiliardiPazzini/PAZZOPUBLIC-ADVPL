@@ -13,73 +13,83 @@ Local ExpC2 := Nil
 Local cGrp := "" //Grupo de aprovação
 
 Local aPergs     := {}
-Local aRetorn    := {}
-Local cLoad      := "00001"
-Local lCanSave   := .T.
-Local lUserSave  := .T.
-Local cTitulo    := "GRUPO DE APROVADORES"
-Local bOk        := {|| .T.}
-Local aButtons   := {}
-Local lCentered  := .T.
-Local nPosx
-Local nPosy
 Local cMSG :=""
-local aCombo   := {"000001","000002","000003","000004","000005","000005","000006","000007","000008","000009"}
-
-
+local nCont := 1
 
 /* Variável Privada */
 Private cNewGRP    := Space(06)
 //Private lIncluir 	:= .F.
 //Private lAlterar 	:= .F.
 
-/* Abro a empresa TESTE, caso faça uso via debug
-Remover para utilizar dentro do Protheus*/
- /*   RpcSetEnv('99','01')*/
-IF !IsBlind()  
+    /* Abro a empresa TESTE, caso faça uso via debug
+    Remover para utilizar dentro do Protheus*/
+    // RpcSetEnv('99','01')
+    IF !IsBlind()  
 
-    If  !Type("ALTERA") == "U"
-        ALTERA := .F.
-        INCLUIR := .T.
-    Endif
+        If  !Type("ALTERA") == "U"
+            ALTERA := .F.
+            INCLUIR := .T.
+        Endif
 
-    If !Type("INCLUIR") == "U"
-        ALTERA := .T.
-        INCLUIR := .F.
-    Endif
+        If !Type("INCLUIR") == "U"
+            ALTERA := .T.
+            INCLUIR := .F.
+        Endif
 
-    If (ALTERA .OR. INCLUIR ) == .T.
-        If Type("PARAMIXB") == "U"
-        
-            IF EMPTY(cMSG)
-                cMSG := AllTrim(cMSG) + "ALTERAR GRUPO DE APROVADORES ! " + chr(13)+chr(10)
-                If !IsBlind()  
-                    If MsgYesNo(cMSG + chr(13)+chr(10)+ "Deseja continuar?" )
-                        lRet := .t.
-                    Else
-                        lRet := .F.
-                        IF lRet == .F. .and. !IsBlind()  
-                            Return(lRet)
-                        EndIf 
+        If (ALTERA .OR. INCLUIR ) == .T.
+            If Type("PARAMIXB") == "U"
+            
+                WHILE  EMPTY(cGrp) .and. nCont >= 1
+                    IF EMPTY(cMSG)
+                        cMSG := AllTrim(cMSG) + "ALTERAR GRUPO DE APROVADORES ! " + chr(13)+chr(10)
+                        If !IsBlind()  
+                            If MsgYesNo(cMSG + chr(13)+chr(10)+ "Deseja continuar?" )
+                                lRet := .t.
+                            Else
+                                lRet := .F.
+                                IF lRet == .F. .and. !IsBlind()  
+                                    Return(lRet)
+                                EndIf 
+                            EndIf
+                        EndIf
+
                     EndIf
-                EndIf
+                    /* Adiciono a pergunta do Parambox */
+                    //  aAdd(aPergs, {1, "NOVO GRUPO : " , cNewGRP  , aCombo[], ".T.", "", ".T.", 80, .F.})
 
-            EndIf
-                /* Adiciono a pergunta do Parambox */
-              //  aAdd(aPergs, {1, "NOVO GRUPO : " , cNewGRP  , aCombo[], ".T.", "", ".T.", 80, .F.})
+                    /* Se a pergunta for confirmada */
+                    //aAdd( aPergs ,{9,"Abaixo escolha uma opção",200, 40,.T.})                 
+                    //aAdd( aPergs ,{2,"Tipo 2 - Escolha:",01,aCombo,50,"",.T.})
+                    
+                  cPergs := "MT120APV01" 
+                    
+                    WHILE lRet := .t.
+                    
+                        aPergs := {}
+                        Aadd(aPergs,{cPergs,"Grupo de aprovadores?","C",06,00,"G","NAOVAZIO() .and. u_VGroup()","SAL","","","","","",""})
+                        //Aadd(aPergs,{cPergs,"Grupo de aprovadores?","C",06,00,"G","NAOVAZIO()","SAL","","","","","",""}) //exemplo
+                       
+                        U_Testasx1(cPergs,aPergs,.F.)
 
-                /* Se a pergunta for confirmada */
-                aAdd( aPergs ,{9,"Abaixo escolha uma opção",200, 40,.T.})                 
-                aAdd( aPergs ,{2,"Tipo 2 - Escolha:",01,aCombo,50,"",.T.})
-                If ParamBox(aPergs, cTitulo, aRetorn, bOk, aButtons, lCentered, nPosx,nPosy, /*oMainDlg*/ , cLoad, lCanSave, lUserSave)
-                cNewGRP := aRetorn[1]
-                endif
-                cGrp := cNewGRP // 28/11
-                MSGALERT( "Grupo alterado com sucesso ! ")
-        Else
-                ExpC1 := PARAMIXB[1]
-                ExpC2 := PARAMIXB[2]
+                            If ! Pergunte(cPergs,.T.)
+                                Return(cGrp)
+                            EndIf
 
+                            If Empty(mv_par01)
+                                Return(cGrp)
+                            EndIf 
+                        
+                        cGrp := mv_par01        
+                    ENDDO         
+
+                    MSGALERT( "Grupo alterado com sucesso ! ")
+                
+                    nCont++   
+                ENDDO
+            Else
+                    ExpC1 := PARAMIXB[1]
+                    ExpC2 := PARAMIXB[2]
+                
                 //EXEMPLO 2 (Manipulando o saldo do pedido, na alteração do pedido):
                 //Manipulando o saldo do pedido pelo usuário, conf. necessidade, atualizando a variável n120TotLib
                 /*If ALTERA
@@ -89,12 +99,33 @@ IF !IsBlind()
                 If INCLUIR
                     MSGALERT( "INCLUIR no ponto MT120APV")
                 Endif
-                */  
-        EndIf
+                */
+            EndIf
 
-    EndIf 
-       // MSGALERT( "Saindo do ponto de entrada MT120APV")
-ENDIF
-
+        EndIf 
+        // MSGALERT( "Saindo do ponto de entrada MT120APV")
+    ENDIF
 Return cGrp
+
+function u_VGroup()
+    local nBLK := 0 
+    local cGrpBlk := "000001/000002" 
+
+   
+        IF (ExistChav('SAL',xFilial("SAL")+mv_par01,1) .AND. (nBLK ==0 ))
+            nBLK :=0
+            lRet = .F. 
+        ENDIF
+
+        IF (mv_par01 $ cGrpBlk) 
+            MSGALERT( "Grupo Bloqueado ! ")
+            nBLK++
+            lRet = .T.
+        ELSE
+            MSGALERT( "Informe um grupo valido ! ")
+            nBLK++
+            lRet = .T.
+        ENDIF
+ 
+RETURN (lRet)
 
