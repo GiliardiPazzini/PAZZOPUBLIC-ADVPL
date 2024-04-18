@@ -31,6 +31,6 @@ Static Function NfeDest(aDest,cVerAmb,aTransp,aCST,lBrinde,cMunDest)
 	//Pazzini
 
 	cString := '<dest>'
-
 	cString += '</dest>'
+
 Return(cString)
